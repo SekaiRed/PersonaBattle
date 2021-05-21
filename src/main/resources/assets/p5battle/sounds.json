@@ -1,0 +1,14 @@
+{
+  "ui.phone.open":
+  {
+    "category": "master",
+    "subtitle": "phone.open",
+    "sounds": [{ "name": "p5battle:phone_open", "stream": true}]
+  },
+  "ui.phone.change":
+  {
+    "category": "master",
+    "subtitle": "phone.change",
+    "sounds": [{ "name": "p5battle:phone_change", "stream": true}]
+  }
+}
