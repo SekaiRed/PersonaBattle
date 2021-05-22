@@ -53,8 +53,6 @@
   "skill.lunge.desc": "Light Physical damage to one foe.",
   "skill.sprayshot": "Spray-Shot",
   "skill.sprayshot.desc": "Light Bow damage to all foes.",
-  "skill.selfdestruct": "Self-Destruct",
-  "skill.selfdestruct.desc": "Heavy Almighty damage to all including self.",
   "skill.megido": "Megido",
   "skill.megido.desc": "Medium Almighty damage to one foe.",
   "skill.megidola": "Megidola",
@@ -78,5 +76,7 @@
   "skill.sew": "Sew",
   "skill.sew.desc": "Inflict Sewn (medium odds) to all foes, enemy exclusive skill.",
   "skill.void": "Void",
-  "skill.void.desc": "Colossal End damage to one foe, enemy exclusive skill."
+  "skill.void.desc": "Colossal End damage to one foe, enemy exclusive skill.",
+  "skill.selfdestruct": "Self-Destruct",
+  "skill.selfdestruct.desc": "Heavy Almighty damage to all including self, enemy exclusive skill."
 }

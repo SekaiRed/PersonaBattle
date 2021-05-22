@@ -44,6 +44,7 @@ public class PersonaBattle
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, PersonaConfig.CLIENT_SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, PersonaConfig.SERVER_SPEC);
 
         RegistryHandler.init();
 

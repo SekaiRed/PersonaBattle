@@ -8,8 +8,8 @@ public enum PersonaAffinity {
     DRAIN("DR", true),
     REPEL("RPL", true);
 
-    private String shortName;
-    private boolean isNegative;
+    private final String shortName;
+    private final boolean isNegative;
 
     PersonaAffinity(String shortName, boolean isNegative){
         this.shortName = shortName;

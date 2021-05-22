@@ -6,14 +6,12 @@ import com.sekai.personabattlemod.move.property.MoveType;
 public class AttackBase extends MoveBase {
     private int power;
     private int accuracy;
-    private int crit;
 
-    public AttackBase(String name, MoveType type, MoveTarget target, int power, int accuracy, int crit, int cost) {
+    public AttackBase(String name, MoveType type, MoveTarget target, int power, int accuracy, int cost) {
         super(name, type, target, cost);
 
         this.power = power;
         this.accuracy = accuracy;
-        this.crit = crit;
         //this.cost = cost;
     }
 
@@ -22,9 +20,6 @@ public class AttackBase extends MoveBase {
 
     public int getAccuracy()
     { return accuracy; }
-
-    public int getCrit()
-    { return crit; }
 
     public boolean isPhysical()
     {

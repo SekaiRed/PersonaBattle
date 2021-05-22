@@ -17,8 +17,15 @@ public class PersonaConfig {
         CLIENT = specPair.getLeft();
     }
 
-    //public static boolean aBoolean;
-    //public static int anInt;
+    public static final ServerConfig SERVER;
+    public static final ForgeConfigSpec SERVER_SPEC;
+    static {
+        final Pair<ServerConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(ServerConfig::new);
+        SERVER_SPEC = specPair.getRight();
+        SERVER = specPair.getLeft();
+    }
+
+    //Client
     public static boolean musicBattle;
     public static boolean soundThirdEye;
 
@@ -26,15 +33,20 @@ public class PersonaConfig {
     public static int UIColorGreen;
     public static int UIColorBlue;
 
+    //Server
+    public static int battleRadius;
+
     public static void bakeConfig() {
-        //aBoolean = CLIENT.aBoolean.get();
-        //anInt = CLIENT.anInt.get();
+        //Client
         musicBattle = CLIENT.musicBattle.get();
         soundThirdEye = CLIENT.soundThirdEye.get();
 
         UIColorRed = CLIENT.UIColorRed.get();
         UIColorGreen = CLIENT.UIColorGreen.get();
         UIColorBlue = CLIENT.UIColorBlue.get();
+
+        //Server
+        battleRadius = SERVER.battleRadius.get();
     }
 
     // Doesn't need to be an inner class
@@ -75,28 +87,30 @@ public class PersonaConfig {
                     .defineInRange("UIColorBlue", 0, 0, 255);
             builder.pop();
         }
+    }
 
-        /*public final ForgeConfigSpec.BooleanValue aBoolean;
-        public final ForgeConfigSpec.IntValue anInt;
+    public static class ServerConfig {
+        public final ForgeConfigSpec.IntValue battleRadius;
 
-        public ClientConfig(ForgeConfigSpec.Builder builder) {
-            aBoolean = builder
-                    .comment("aBoolean usage description")
-                    .translation(PersonaBattle.MOD_ID + ".config." + "aBoolean")
-                    .define("aBoolean", false);
+        public ServerConfig(ForgeConfigSpec.Builder builder) {
+            builder.comment("Server Config");
 
-            builder.push("category");
-            anInt = builder
-                    .comment("anInt usage description")
-                    .translation(PersonaBattle.MOD_ID + ".config." + "anInt")
-                    .defineInRange("anInt", 10, 0, 100);
+            builder.push("Battle");
+            battleRadius = builder
+                    .comment("When a battle start, nearby enemies will get dragged into the battle as well if they're within the specified radius.")
+                    .translation(PersonaBattle.MOD_ID + ".config." + "battleRadius")
+                    .defineInRange("battleRadius", 0, 0, 64);
             builder.pop();
-        }*/
+        }
     }
 
     @SubscribeEvent
     public static void onModConfigEvent(final ModConfig.ModConfigEvent configEvent) {
         if (configEvent.getConfig().getSpec() == PersonaConfig.CLIENT_SPEC) {
+            bakeConfig();
+        }
+
+        if (configEvent.getConfig().getSpec() == PersonaConfig.SERVER_SPEC) {
             bakeConfig();
         }
     }
