@@ -2,7 +2,10 @@ package com.sekai.personabattlemod.battle;
 
 import com.sekai.personabattlemod.PersonaBattle;
 import com.sekai.personabattlemod.client.gui.BetaProfileGui;
+import com.sekai.personabattlemod.packets.PacketCapabilitiesWildCard;
+import com.sekai.personabattlemod.packets.PacketClientInitBattle;
 import com.sekai.personabattlemod.util.BattleUtil;
+import com.sekai.personabattlemod.util.PacketHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -10,6 +13,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.network.PacketDistributor;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -24,12 +28,13 @@ public class BattleManager {
     }
 
     public BattleInstance createBattle(ServerPlayerEntity source, LivingEntity target) {
-        BattleInstance battle = new BattleInstance(source, target, BattleUtil.getArena(source, target));
+        UUID uniqueKey = UUID.randomUUID();
+        BattleInstance battle = new BattleInstance(uniqueKey, source, target, BattleUtil.getArena(source, target));
 
         if(!battle.validate())
             return null;
 
-        battles.put(UUID.randomUUID(), battle);
+        battles.put(uniqueKey, battle);
 
         entitiesInBattle.add(source);
         entitiesInBattle.add(target);
@@ -104,6 +109,17 @@ public class BattleManager {
 	}
     */
     public void initBattle(BattleInstance battle) {
+        /*List<FighterInstance> playerFighters = battle.getAllClients();
+        List<ServerPlayerEntity> players = new LinkedList<>();
+        for(FighterInstance fighter : playerFighters)
+            players.add((ServerPlayerEntity) fighter.getEntity());
+
+        for(ServerPlayerEntity player : players)
+            PacketHandler.NET.send(PacketDistributor.PLAYER.with(() -> (player)), new PacketClientInitBattle(battle));*/
+
+        for(FighterInstance player : battle.getAllClients())
+            PacketHandler.NET.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) player.getEntity()), new PacketClientInitBattle(battle));
+
         /*List<PlayerEntity> players = battle.getClients();
         for(PlayerEntity player : players)
             NETWORK.send(PacketDistributor.PLAYER.with(player), new InitBattlePacket(battle));*/
@@ -124,14 +140,16 @@ public class BattleManager {
 
     }
 
-    private class BattleInstance {
+    public class BattleInstance {
         //todo probably need to make a state machine to track what is happening like when waiting for a client reply or executing an action and even just waiting
+        private final UUID uniqueKey;
         public List<FighterInstance> playerSide = new LinkedList<>();
         public List<FighterInstance> enemySide = new LinkedList<>();
 
         public BattleArena arena;
 
-        BattleInstance(ServerPlayerEntity source, LivingEntity target, BattleArena arena) {
+        BattleInstance(UUID uniqueKey, ServerPlayerEntity source, LivingEntity target, BattleArena arena) {
+            this.uniqueKey = uniqueKey;
             playerSide.add(new FighterInstance(source));
             enemySide.add(new FighterInstance(target));
             this.arena = arena;
@@ -150,6 +168,11 @@ public class BattleManager {
             returnList.addAll(enemySide.stream().filter(FighterInstance::isPlayer).collect(Collectors.toList()));
             return returnList;
         }
+
+        public UUID getUniqueKey() {
+            return uniqueKey;
+        }
+
         //todo maybe store all clients locally in BattleInstance instead of computing it every single time, it's gonna change rarely if ever
 
         //public void addAllies(List<LivingEntity> allies)
