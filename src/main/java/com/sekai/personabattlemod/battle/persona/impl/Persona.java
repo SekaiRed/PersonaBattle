@@ -1,9 +1,9 @@
-package com.sekai.personabattlemod.persona.impl;
+package com.sekai.personabattlemod.battle.persona.impl;
 
 import com.sekai.personabattlemod.PersonaBattle;
-import com.sekai.personabattlemod.persona.IPersona;
-import com.sekai.personabattlemod.persona.property.PersonaArcana;
-import com.sekai.personabattlemod.persona.property.PersonaStat;
+import com.sekai.personabattlemod.battle.persona.IPersona;
+import com.sekai.personabattlemod.battle.persona.property.PersonaArcana;
+import com.sekai.personabattlemod.battle.persona.property.PersonaStat;
 
 import java.util.ArrayList;
 import java.util.Random;

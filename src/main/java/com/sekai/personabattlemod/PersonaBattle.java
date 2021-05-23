@@ -1,5 +1,6 @@
 package com.sekai.personabattlemod;
 
+import com.sekai.personabattlemod.battle.BattleManager;
 import com.sekai.personabattlemod.capabilities.WildCardStorage;
 import com.sekai.personabattlemod.client.entity.render.ShadowEntityRender;
 import com.sekai.personabattlemod.client.gui.BetaProfileGui;
@@ -7,9 +8,8 @@ import com.sekai.personabattlemod.client.gui.BetaSinglePersonaGui;
 import com.sekai.personabattlemod.client.gui.GuiOverlay;
 import com.sekai.personabattlemod.config.PersonaConfig;
 import com.sekai.personabattlemod.events.ThirdEyeEvent;
-import com.sekai.personabattlemod.items.ItemLogo;
-import com.sekai.personabattlemod.move.MoveDatabase;
-import com.sekai.personabattlemod.persona.impl.WildCard;
+import com.sekai.personabattlemod.battle.move.MoveDatabase;
+import com.sekai.personabattlemod.battle.persona.impl.WildCard;
 import com.sekai.personabattlemod.util.CapabilityHandler;
 import com.sekai.personabattlemod.util.EventHandler;
 import com.sekai.personabattlemod.util.PacketHandler;
@@ -44,7 +44,7 @@ public class PersonaBattle
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, PersonaConfig.CLIENT_SPEC);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, PersonaConfig.SERVER_SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, PersonaConfig.COMMON_SPEC);
 
         RegistryHandler.init();
 
@@ -69,6 +69,7 @@ public class PersonaBattle
         //Events
         MinecraftForge.EVENT_BUS.register(new EventHandler());
         MinecraftForge.EVENT_BUS.register(new ThirdEyeEvent());
+        MinecraftForge.EVENT_BUS.register(new BattleManager());
         //Guis
         MinecraftForge.EVENT_BUS.register(new BetaProfileGui());
         MinecraftForge.EVENT_BUS.register(new BetaSinglePersonaGui());

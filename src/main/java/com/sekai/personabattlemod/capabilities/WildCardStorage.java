@@ -1,18 +1,13 @@
 package com.sekai.personabattlemod.capabilities;
 
-import com.sekai.personabattlemod.persona.impl.Persona;
-import com.sekai.personabattlemod.persona.impl.WildCard;
-import com.sekai.personabattlemod.persona.property.PersonaArcana;
-import com.sekai.personabattlemod.persona.property.PersonaStat;
-import net.minecraft.command.arguments.NBTCompoundTagArgument;
+import com.sekai.personabattlemod.battle.persona.impl.Persona;
+import com.sekai.personabattlemod.battle.persona.impl.WildCard;
+import com.sekai.personabattlemod.battle.persona.property.PersonaArcana;
+import com.sekai.personabattlemod.battle.persona.property.PersonaStat;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.IntNBT;
-import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
-
-import javax.annotation.Nullable;
 
 public class WildCardStorage implements Capability.IStorage<WildCard> {
     @Override

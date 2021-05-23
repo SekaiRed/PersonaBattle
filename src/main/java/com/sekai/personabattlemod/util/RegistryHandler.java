@@ -1,6 +1,7 @@
 package com.sekai.personabattlemod.util;
 
 import com.sekai.personabattlemod.PersonaBattle;
+import com.sekai.personabattlemod.battle.move.declarations.MoveBase;
 import com.sekai.personabattlemod.dimensions.MementosModDimension;
 import com.sekai.personabattlemod.entities.ShadowEntity;
 import com.sekai.personabattlemod.items.ItemBase;
@@ -20,11 +21,14 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class RegistryHandler {
+    //new DeferredRegister<>(ForgeRegistries.ITEMS, PersonaBattle.MOD_ID); old method
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, PersonaBattle.MOD_ID);
+    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, PersonaBattle.MOD_ID);
+    public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, PersonaBattle.MOD_ID);
+    public static final DeferredRegister<ModDimension> DIMENSIONS = DeferredRegister.create(ForgeRegistries.MOD_DIMENSIONS, PersonaBattle.MOD_ID);
 
-    public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, PersonaBattle.MOD_ID);
-    public static final DeferredRegister<EntityType<?>> ENTITIES = new DeferredRegister<>(ForgeRegistries.ENTITIES, PersonaBattle.MOD_ID);
-    public static final DeferredRegister<SoundEvent> SOUNDS = new DeferredRegister<>(ForgeRegistries.SOUND_EVENTS, PersonaBattle.MOD_ID);
-    public static final DeferredRegister<ModDimension> DIMENSIONS = new DeferredRegister<>(ForgeRegistries.MOD_DIMENSIONS, PersonaBattle.MOD_ID);
+    //persona
+    //public static final DeferredRegister<MoveBase> MOVES = DeferredRegister.create(MoveBase.class, PersonaBattle.MOD_ID);
 
     //public static final DeferredRegister<Regist>
 

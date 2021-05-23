@@ -1,9 +1,5 @@
 package com.sekai.personabattlemod.packets;
 
-import com.sekai.personabattlemod.persona.impl.Persona;
-import com.sekai.personabattlemod.persona.impl.WildCard;
-import com.sekai.personabattlemod.persona.property.PersonaArcana;
-import com.sekai.personabattlemod.persona.property.PersonaStat;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
 

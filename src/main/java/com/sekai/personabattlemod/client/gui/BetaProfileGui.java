@@ -1,23 +1,16 @@
 package com.sekai.personabattlemod.client.gui;
 
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.sekai.personabattlemod.PersonaBattle;
 import com.sekai.personabattlemod.capabilities.WildCardProvider;
-import com.sekai.personabattlemod.move.MoveDatabase;
-import com.sekai.personabattlemod.move.property.MoveType;
-import com.sekai.personabattlemod.persona.impl.WildCard;
+import com.sekai.personabattlemod.battle.move.MoveDatabase;
+import com.sekai.personabattlemod.battle.move.property.MoveType;
+import com.sekai.personabattlemod.battle.persona.impl.WildCard;
 import com.sekai.personabattlemod.util.GuiUtil;
 import com.sekai.personabattlemod.util.RegistryHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.Widget;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.client.util.InputMappings;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.client.gui.GuiUtils;

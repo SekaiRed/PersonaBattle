@@ -1,19 +1,16 @@
-package com.sekai.personabattlemod.move;
+package com.sekai.personabattlemod.battle.move;
 
 import com.sekai.personabattlemod.battle.effect.AttributeEffect;
 import com.sekai.personabattlemod.battle.effect.EffectOdds;
 import com.sekai.personabattlemod.battle.effect.FighterEffect;
-import com.sekai.personabattlemod.move.declarations.AilmentBase;
-import com.sekai.personabattlemod.move.declarations.AttackBase;
-import com.sekai.personabattlemod.move.declarations.MoveBase;
-import com.sekai.personabattlemod.move.declarations.SupportBase;
-import com.sekai.personabattlemod.move.property.MoveTarget;
-import com.sekai.personabattlemod.move.property.MoveType;
-import net.minecraft.util.text.TextFormatting;
+import com.sekai.personabattlemod.battle.move.declarations.AilmentBase;
+import com.sekai.personabattlemod.battle.move.declarations.AttackBase;
+import com.sekai.personabattlemod.battle.move.declarations.MoveBase;
+import com.sekai.personabattlemod.battle.move.declarations.SupportBase;
+import com.sekai.personabattlemod.battle.move.property.MoveTarget;
+import com.sekai.personabattlemod.battle.move.property.MoveType;
 
-import java.util.Hashtable;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Set;
 
 public class MoveDatabase {

@@ -1,8 +1,8 @@
-package com.sekai.personabattlemod.move.declarations;
+package com.sekai.personabattlemod.battle.move.declarations;
 
 import com.sekai.personabattlemod.battle.effect.FighterEffect;
-import com.sekai.personabattlemod.move.property.MoveTarget;
-import com.sekai.personabattlemod.move.property.MoveType;
+import com.sekai.personabattlemod.battle.move.property.MoveTarget;
+import com.sekai.personabattlemod.battle.move.property.MoveType;
 
 import java.util.ArrayList;
 import java.util.List;

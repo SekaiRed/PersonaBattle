@@ -1,4 +1,4 @@
-package com.sekai.personabattlemod.persona.property;
+package com.sekai.personabattlemod.battle.persona.property;
 
 public enum PersonaStat {
     STRENGTH,

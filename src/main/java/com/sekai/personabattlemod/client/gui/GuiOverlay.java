@@ -1,18 +1,12 @@
 package com.sekai.personabattlemod.client.gui;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.sekai.personabattlemod.capabilities.WildCardProvider;
-import com.sekai.personabattlemod.persona.impl.WildCard;
-import com.sekai.personabattlemod.persona.property.PersonaStat;
-import com.sekai.personabattlemod.util.GuiUtil;
+import com.sekai.personabattlemod.battle.persona.impl.WildCard;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.shader.Framebuffer;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import org.lwjgl.opengl.GL11;
 
 public class GuiOverlay extends Screen {
     public GuiOverlay() {

@@ -1,4 +1,4 @@
-package com.sekai.personabattlemod.move.property;
+package com.sekai.personabattlemod.battle.move.property;
 
 public enum MoveTarget {
     SELF,

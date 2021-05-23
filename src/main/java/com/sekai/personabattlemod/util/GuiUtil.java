@@ -2,15 +2,9 @@ package com.sekai.personabattlemod.util;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.sekai.personabattlemod.PersonaBattle;
-import com.sekai.personabattlemod.move.MoveDatabase;
-import com.sekai.personabattlemod.move.property.MoveType;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.client.gui.GuiUtils;
 import org.lwjgl.opengl.GL11;
 
 public class GuiUtil {

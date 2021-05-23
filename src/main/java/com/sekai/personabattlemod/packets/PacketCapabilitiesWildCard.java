@@ -1,19 +1,15 @@
 package com.sekai.personabattlemod.packets;
 
 import com.sekai.personabattlemod.capabilities.WildCardProvider;
-import com.sekai.personabattlemod.persona.impl.Persona;
-import com.sekai.personabattlemod.persona.impl.WildCard;
-import com.sekai.personabattlemod.persona.property.PersonaArcana;
-import com.sekai.personabattlemod.persona.property.PersonaStat;
+import com.sekai.personabattlemod.battle.persona.impl.Persona;
+import com.sekai.personabattlemod.battle.persona.impl.WildCard;
+import com.sekai.personabattlemod.battle.persona.property.PersonaArcana;
+import com.sekai.personabattlemod.battle.persona.property.PersonaStat;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.common.util.NonNullConsumer;
 import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkEvent;
 
-import javax.annotation.Nonnull;
 import java.util.function.Supplier;
 
 public class PacketCapabilitiesWildCard {

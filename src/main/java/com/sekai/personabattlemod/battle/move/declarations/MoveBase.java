@@ -1,11 +1,11 @@
-package com.sekai.personabattlemod.move.declarations;
+package com.sekai.personabattlemod.battle.move.declarations;
 
 import com.sekai.personabattlemod.PersonaBattle;
 import com.sekai.personabattlemod.battle.effect.AttributeEffect;
-import com.sekai.personabattlemod.move.attribute.InflictAttribute;
-import com.sekai.personabattlemod.move.attribute.MoveAttributeBase;
-import com.sekai.personabattlemod.move.property.MoveTarget;
-import com.sekai.personabattlemod.move.property.MoveType;
+import com.sekai.personabattlemod.battle.move.attribute.InflictAttribute;
+import com.sekai.personabattlemod.battle.move.attribute.MoveAttributeBase;
+import com.sekai.personabattlemod.battle.move.property.MoveTarget;
+import com.sekai.personabattlemod.battle.move.property.MoveType;
 
 import java.util.ArrayList;
 import java.util.List;

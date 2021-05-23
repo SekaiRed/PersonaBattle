@@ -1,25 +1,19 @@
 package com.sekai.personabattlemod.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import com.sekai.personabattlemod.capabilities.WildCardProvider;
-import com.sekai.personabattlemod.move.MoveDatabase;
+import com.sekai.personabattlemod.battle.move.MoveDatabase;
 import com.sekai.personabattlemod.packets.PacketCapabilitiesWildCard;
-import com.sekai.personabattlemod.persona.impl.WildCard;
 import com.sekai.personabattlemod.util.PacketHandler;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
-import net.minecraft.command.arguments.MessageArgument;
-import net.minecraft.command.arguments.ResourceLocationArgument;
-import net.minecraft.command.arguments.SuggestionProviders;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.network.PacketDistributor;
 

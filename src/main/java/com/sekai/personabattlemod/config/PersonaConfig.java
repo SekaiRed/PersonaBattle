@@ -17,12 +17,12 @@ public class PersonaConfig {
         CLIENT = specPair.getLeft();
     }
 
-    public static final ServerConfig SERVER;
-    public static final ForgeConfigSpec SERVER_SPEC;
+    public static final CommonConfig COMMON;
+    public static final ForgeConfigSpec COMMON_SPEC;
     static {
-        final Pair<ServerConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(ServerConfig::new);
-        SERVER_SPEC = specPair.getRight();
-        SERVER = specPair.getLeft();
+        final Pair<CommonConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(CommonConfig::new);
+        COMMON_SPEC = specPair.getRight();
+        COMMON = specPair.getLeft();
     }
 
     //Client
@@ -45,8 +45,8 @@ public class PersonaConfig {
         UIColorGreen = CLIENT.UIColorGreen.get();
         UIColorBlue = CLIENT.UIColorBlue.get();
 
-        //Server
-        battleRadius = SERVER.battleRadius.get();
+        //Common
+        battleRadius = COMMON.battleRadius.get();
     }
 
     // Doesn't need to be an inner class
@@ -89,11 +89,11 @@ public class PersonaConfig {
         }
     }
 
-    public static class ServerConfig {
+    public static class CommonConfig {
         public final ForgeConfigSpec.IntValue battleRadius;
 
-        public ServerConfig(ForgeConfigSpec.Builder builder) {
-            builder.comment("Server Config");
+        public CommonConfig(ForgeConfigSpec.Builder builder) {
+            builder.comment("Common Config");
 
             builder.push("Battle");
             battleRadius = builder
@@ -110,7 +110,7 @@ public class PersonaConfig {
             bakeConfig();
         }
 
-        if (configEvent.getConfig().getSpec() == PersonaConfig.SERVER_SPEC) {
+        if (configEvent.getConfig().getSpec() == PersonaConfig.COMMON_SPEC) {
             bakeConfig();
         }
     }

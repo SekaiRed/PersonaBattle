@@ -1,7 +1,7 @@
-package com.sekai.personabattlemod.persona;
+package com.sekai.personabattlemod.battle.persona;
 
-import com.sekai.personabattlemod.persona.property.PersonaArcana;
-import com.sekai.personabattlemod.persona.property.PersonaStat;
+import com.sekai.personabattlemod.battle.persona.property.PersonaArcana;
+import com.sekai.personabattlemod.battle.persona.property.PersonaStat;
 
 public interface IPersona {
     int getLevel();

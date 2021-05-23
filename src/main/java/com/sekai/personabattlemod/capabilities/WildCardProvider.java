@@ -1,6 +1,6 @@
 package com.sekai.personabattlemod.capabilities;
 
-import com.sekai.personabattlemod.persona.impl.WildCard;
+import com.sekai.personabattlemod.battle.persona.impl.WildCard;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;
@@ -9,7 +9,6 @@ import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.common.util.NonNullSupplier;
-import net.minecraftforge.fml.common.Mod;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

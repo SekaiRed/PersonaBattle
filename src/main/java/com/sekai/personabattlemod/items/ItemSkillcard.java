@@ -1,15 +1,13 @@
 package com.sekai.personabattlemod.items;
 
 import com.sekai.personabattlemod.capabilities.WildCardProvider;
-import com.sekai.personabattlemod.move.MoveDatabase;
-import com.sekai.personabattlemod.move.declarations.MoveBase;
-import com.sekai.personabattlemod.move.property.MoveType;
+import com.sekai.personabattlemod.battle.move.MoveDatabase;
+import com.sekai.personabattlemod.battle.move.declarations.MoveBase;
+import com.sekai.personabattlemod.battle.move.property.MoveType;
 import com.sekai.personabattlemod.packets.PacketCapabilitiesWildCard;
-import com.sekai.personabattlemod.persona.impl.WildCard;
+import com.sekai.personabattlemod.battle.persona.impl.WildCard;
 import com.sekai.personabattlemod.util.PacketHandler;
 import com.sekai.personabattlemod.util.RegistryHandler;
-import net.minecraft.client.audio.SimpleSound;
-import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -19,13 +17,11 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.*;
 import net.minecraft.util.text.*;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.PacketDistributor;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Supplier;
 
 public class ItemSkillcard extends ItemBase {
     public ItemSkillcard()
