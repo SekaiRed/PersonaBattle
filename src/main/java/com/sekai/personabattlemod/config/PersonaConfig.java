@@ -97,9 +97,9 @@ public class PersonaConfig {
 
             builder.push("Battle");
             battleRadius = builder
-                    .comment("When a battle start, nearby enemies will get dragged into the battle as well if they're within the specified radius.")
+                    .comment("When a battle start, nearby enemies will get dragged into the battle as well if they're within the specified block radius.")
                     .translation(PersonaBattle.MOD_ID + ".config." + "battleRadius")
-                    .defineInRange("battleRadius", 0, 0, 64);
+                    .defineInRange("battleRadius", 10, 0, 64);
             builder.pop();
         }
     }

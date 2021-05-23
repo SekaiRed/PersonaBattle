@@ -1,7 +1,12 @@
 package com.sekai.personabattlemod.battle;
 
 import com.sekai.personabattlemod.PersonaBattle;
+import com.sekai.personabattlemod.battle.move.MoveDatabase;
+import com.sekai.personabattlemod.battle.persona.IPersona;
+import com.sekai.personabattlemod.battle.persona.impl.WildCard;
+import com.sekai.personabattlemod.capabilities.WildCardProvider;
 import com.sekai.personabattlemod.client.gui.BetaProfileGui;
+import com.sekai.personabattlemod.config.PersonaConfig;
 import com.sekai.personabattlemod.packets.PacketCapabilitiesWildCard;
 import com.sekai.personabattlemod.packets.PacketClientInitBattle;
 import com.sekai.personabattlemod.util.BattleUtil;
@@ -10,6 +15,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -27,8 +33,40 @@ public class BattleManager {
         instance = this;
     }
 
-    public BattleInstance createBattle(ServerPlayerEntity source, LivingEntity target) {
-        UUID uniqueKey = UUID.randomUUID();
+    public void createRegularBattle(ServerPlayerEntity source, LivingEntity target) {
+        //WildCard wc = source.getCapability(WildCardProvider.WC_CAP, null).orElse(null);
+        /*boolean failed = true;
+        //source.getCapability(WildCardProvider.WC_CAP).
+        final WildCard wc = source.getCapability(WildCardProvider.WC_CAP, null).orElse(null);
+        //source.getCapability(WildCardProvider.WC_CAP).ifPresent(temp -> {
+        //    wc = temp;
+        //});
+        if(wc == null)
+            return null;
+        FighterInstance playerFighter = new FighterInstance();
+        List<LivingEntity> foes = BattleUtil.getEnemies(target, PersonaConfig.battleRadius);
+        for (LivingEntity foe : foes) {
+
+        }*/
+
+        source.getCapability(WildCardProvider.WC_CAP).ifPresent(wc -> {
+            List<FighterInstance> playerSide = new LinkedList<>();
+            List<FighterInstance> enemySide = new LinkedList<>();
+
+            FighterInstance playerFighter = new FighterInstance(wc, source);
+            playerSide.add(playerFighter);
+
+            //FighterInstance enemyFighter = new FighterInstance(BattleUtil.getStats(target), target);
+            //enemySide.add(enemyFighter);
+
+            BattleUtil.getEnemies(target, PersonaConfig.battleRadius).forEach(entity -> {
+                enemySide.add(new FighterInstance(BattleUtil.getStats(entity), entity));
+            });
+
+            createBattle(playerSide, enemySide, BattleUtil.getArena(source, target));
+        });
+
+        /*UUID uniqueKey = UUID.randomUUID();
         BattleInstance battle = new BattleInstance(uniqueKey, source, target, BattleUtil.getArena(source, target));
 
         if(!battle.validate())
@@ -43,7 +81,28 @@ public class BattleManager {
 
         debugLogging();
 
-        return battle;
+        return battle;*/
+    }
+
+    private void createBattle(List<FighterInstance> playerSide, List<FighterInstance> enemySide, BattleArena arena) {
+        UUID uniqueKey = UUID.randomUUID();
+
+        //can only add entities that are not within a battle
+        playerSide = playerSide.stream().filter(fighter -> !entitiesInBattle.contains(fighter.getEntity())).collect(Collectors.toList());
+        enemySide = enemySide.stream().filter(fighter -> !entitiesInBattle.contains(fighter.getEntity())).collect(Collectors.toList());
+
+        BattleInstance battle = new BattleInstance(uniqueKey, playerSide, enemySide, arena);
+        battle.playerSide.forEach(fighter -> entitiesInBattle.add(fighter.getEntity()));
+        battle.enemySide.forEach(fighter -> entitiesInBattle.add(fighter.getEntity()));
+
+        if(!battle.validate())
+            return;
+
+        battles.put(uniqueKey, battle);
+
+        initBattle(battle);
+
+        debugLogging();
     }
 
     private void debugLogging() {
@@ -51,13 +110,14 @@ public class BattleManager {
         for(BattleInstance battle : battles.values()) {
             String playerSide = "On playerSide there is";
             for(FighterInstance fighter : battle.playerSide)
-                playerSide += " " + fighter.entity.getName();
+                playerSide += " " + fighter.entity.getName().getString();
             System.out.println(playerSide);
 
             String enemySide = "On enemySide there is";
             for(FighterInstance fighter : battle.enemySide)
-                enemySide += " " + fighter.entity.getName();
+                enemySide += " " + fighter.entity.getName().getString();
             System.out.println(enemySide);
+            System.out.println("================");
         }
     }
 
@@ -108,21 +168,9 @@ public class BattleManager {
 		return (int) Math.round(dmg);
 	}
     */
-    public void initBattle(BattleInstance battle) {
-        /*List<FighterInstance> playerFighters = battle.getAllClients();
-        List<ServerPlayerEntity> players = new LinkedList<>();
-        for(FighterInstance fighter : playerFighters)
-            players.add((ServerPlayerEntity) fighter.getEntity());
-
-        for(ServerPlayerEntity player : players)
-            PacketHandler.NET.send(PacketDistributor.PLAYER.with(() -> (player)), new PacketClientInitBattle(battle));*/
-
+    private void initBattle(BattleInstance battle) {
         for(FighterInstance player : battle.getAllClients())
             PacketHandler.NET.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) player.getEntity()), new PacketClientInitBattle(battle));
-
-        /*List<PlayerEntity> players = battle.getClients();
-        for(PlayerEntity player : players)
-            NETWORK.send(PacketDistributor.PLAYER.with(player), new InitBattlePacket(battle));*/
     }
 
     @SubscribeEvent
@@ -130,9 +178,9 @@ public class BattleManager {
         if(!(event.getSource().getTrueSource() instanceof ServerPlayerEntity) || event.getSource().getTrueSource().getEntityWorld().isRemote)
             return;
 
-        System.out.println(event.getSource().getTrueSource());
+        System.out.println(PersonaConfig.battleRadius);
 
-        createBattle((ServerPlayerEntity) event.getSource().getTrueSource(), event.getEntityLiving());
+        createRegularBattle((ServerPlayerEntity) event.getSource().getTrueSource(), event.getEntityLiving());
     }
 
     @SubscribeEvent
@@ -143,15 +191,15 @@ public class BattleManager {
     public class BattleInstance {
         //todo probably need to make a state machine to track what is happening like when waiting for a client reply or executing an action and even just waiting
         private final UUID uniqueKey;
-        public List<FighterInstance> playerSide = new LinkedList<>();
-        public List<FighterInstance> enemySide = new LinkedList<>();
+        public List<FighterInstance> playerSide;
+        public List<FighterInstance> enemySide;
 
         public BattleArena arena;
 
-        BattleInstance(UUID uniqueKey, ServerPlayerEntity source, LivingEntity target, BattleArena arena) {
+        BattleInstance(UUID uniqueKey, List<FighterInstance> playerSide, List<FighterInstance> enemySide, BattleArena arena) {
             this.uniqueKey = uniqueKey;
-            playerSide.add(new FighterInstance(source));
-            enemySide.add(new FighterInstance(target));
+            this.playerSide = playerSide;
+            this.enemySide = enemySide;
             this.arena = arena;
         }
 
@@ -175,19 +223,29 @@ public class BattleManager {
 
         //todo maybe store all clients locally in BattleInstance instead of computing it every single time, it's gonna change rarely if ever
 
-        //public void addAllies(List<LivingEntity> allies)
-        //public void addFoes(List<LivingEntity> foes)
+        public void addAllies(List<FighterInstance> allies) {
+            playerSide.addAll(allies);
+        }
+        public void addFoes(List<FighterInstance> foes) {
+            enemySide.addAll(foes);
+        }
 
         //public ??? getHighestAgility();
     }
 
     private class FighterInstance {
+        IPersona stat;
         LivingEntity entity;
         private final boolean isPlayer;
 
-        private FighterInstance(LivingEntity entity) {
+        private FighterInstance(IPersona stat, LivingEntity entity) {
+            this.stat = stat;
             this.entity = entity;
             isPlayer = entity instanceof ServerPlayerEntity;
+        }
+
+        public IPersona getStat() {
+            return stat;
         }
 
         public LivingEntity getEntity() {
