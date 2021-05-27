@@ -6,6 +6,8 @@ import com.sekai.personabattlemod.battle.persona.impl.WildCard;
 import com.sekai.personabattlemod.battle.persona.property.PersonaArcana;
 import com.sekai.personabattlemod.battle.persona.property.PersonaStat;
 import com.sekai.personabattlemod.capabilities.WildCardProvider;
+import com.sekai.personabattlemod.client.gui.BetaProfileGui;
+import com.sekai.personabattlemod.client.gui.MainBattleGui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkDirection;
@@ -65,8 +67,10 @@ public class PacketClientInitBattle {
 
                     wc.equipPersona(pkt.data.getPersonaIndex());
                 }*/
-                Minecraft.getInstance().ingameGUI.displayTitle("New battle started!", null, 50, 300, 50);
-                Minecraft.getInstance().ingameGUI.displayTitle(null, "With UUID\n" + pkt.uniqueKey.toString(), 50, 300, 50);
+
+                //Minecraft.getInstance().ingameGUI.displayTitle("New battle started!", null, 50, 300, 50);
+                //Minecraft.getInstance().ingameGUI.displayTitle(null, "With UUID\n" + pkt.uniqueKey.toString(), 50, 300, 50);
+                Minecraft.getInstance().displayGuiScreen(new MainBattleGui());
             });
             ctx.get().setPacketHandled(true);
             /*Minecraft mc = Minecraft.getInstance();

@@ -10,5 +10,11 @@
     "category": "master",
     "subtitle": "phone.change",
     "sounds": [{ "name": "p5battle:phone_change", "stream": true}]
+  },
+  "ui.battle.start":
+  {
+    "category": "master",
+    "subtitle": "battle.start",
+    "sounds": [{ "name": "p5battle:battle_start", "stream": true}]
   }
 }

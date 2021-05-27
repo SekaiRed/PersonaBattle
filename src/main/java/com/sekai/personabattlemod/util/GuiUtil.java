@@ -159,12 +159,26 @@ public class GuiUtil {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder wr = tessellator.getBuffer();
         wr.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR_TEX);
-        wr.pos(x        , y + height, zLevel).color(r/8, g/8, b/8, a).tex( u          * uScale, ((v + height) * vScale)).endVertex();
-        wr.pos(x + width, y + height, zLevel).color(r/8, g/8, b/8, a).tex((u + width) * uScale, ((v + height) * vScale)).endVertex();
+        wr.pos(x        , y + height, zLevel).color(r, g, b, a).tex( u          * uScale, ((v + height) * vScale)).endVertex();
+        wr.pos(x + width, y + height, zLevel).color(r, g, b, a).tex((u + width) * uScale, ((v + height) * vScale)).endVertex();
         wr.pos(x + width, y         , zLevel).color(r, g, b, a).tex((u + width) * uScale, ( v           * vScale)).endVertex();
         wr.pos(x        , y         , zLevel).color(r, g, b, a).tex( u          * uScale, ( v           * vScale)).endVertex();
         tessellator.draw();
 
         //GlStateManager.func_227737_l_();
+    }
+
+    public static void drawTri(float x, float y, float width, float height, float r, float g, float b, float a)
+    {
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder bufferbuilder = tessellator.getBuffer();
+        GL11.glColor4f(r, g, b, a);
+        //bufferbuilder.begin(7, DefaultVertexFormats.POSITION);
+        bufferbuilder.begin(GL11.GL_TRIANGLES, DefaultVertexFormats.POSITION);
+
+        bufferbuilder.pos(x, y + height, 0.0D).endVertex();
+        bufferbuilder.pos(x + width, y + height, 0.0D).endVertex();
+        bufferbuilder.pos(x + width, y, 0.0D).endVertex();
+        tessellator.draw();
     }
 }

@@ -55,6 +55,8 @@ public class RegistryHandler {
             () -> new SoundBase(new ResourceLocation(PersonaBattle.MOD_ID,"ui.phone.open")));
     public static final RegistryObject<SoundEvent> PHONE_CHANGE = SOUNDS.register("phone_change",
             () -> new SoundBase(new ResourceLocation(PersonaBattle.MOD_ID,"ui.phone.change")));
+    public static final RegistryObject<SoundEvent> BATTLE_START = SOUNDS.register("battle_start",
+            () -> new SoundBase(new ResourceLocation(PersonaBattle.MOD_ID,"ui.battle.start")));
 
     //Dimensions
     public static final RegistryObject<ModDimension> MEMENTOS = DIMENSIONS.register("mementos", MementosModDimension::new);

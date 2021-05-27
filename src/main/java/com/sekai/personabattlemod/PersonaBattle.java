@@ -6,6 +6,7 @@ import com.sekai.personabattlemod.client.entity.render.ShadowEntityRender;
 import com.sekai.personabattlemod.client.gui.BetaProfileGui;
 import com.sekai.personabattlemod.client.gui.BetaSinglePersonaGui;
 import com.sekai.personabattlemod.client.gui.GuiOverlay;
+import com.sekai.personabattlemod.client.gui.MainBattleGui;
 import com.sekai.personabattlemod.config.PersonaConfig;
 import com.sekai.personabattlemod.events.ThirdEyeEvent;
 import com.sekai.personabattlemod.battle.move.MoveDatabase;
@@ -73,8 +74,11 @@ public class PersonaBattle
         //Guis
         MinecraftForge.EVENT_BUS.register(new BetaProfileGui());
         MinecraftForge.EVENT_BUS.register(new BetaSinglePersonaGui());
-        RenderingRegistry.registerEntityRenderingHandler(RegistryHandler.SHADOW.get(), ShadowEntityRender::new);
+        MinecraftForge.EVENT_BUS.register(new MainBattleGui());
         MinecraftForge.EVENT_BUS.register(new GuiOverlay());
+
+        //Renderer
+        RenderingRegistry.registerEntityRenderingHandler(RegistryHandler.SHADOW.get(), ShadowEntityRender::new);
     }
 
     /*private void serverLoad(final FMLServerStartingEvent event) {
