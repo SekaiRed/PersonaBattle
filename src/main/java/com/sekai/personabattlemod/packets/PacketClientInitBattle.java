@@ -70,7 +70,7 @@ public class PacketClientInitBattle {
 
                 //Minecraft.getInstance().ingameGUI.displayTitle("New battle started!", null, 50, 300, 50);
                 //Minecraft.getInstance().ingameGUI.displayTitle(null, "With UUID\n" + pkt.uniqueKey.toString(), 50, 300, 50);
-                Minecraft.getInstance().displayGuiScreen(new MainBattleGui());
+                Minecraft.getInstance().displayGuiScreen(new MainBattleGui(BattleManager.instance.getBattle(pkt.uniqueKey)));
             });
             ctx.get().setPacketHandled(true);
             /*Minecraft mc = Minecraft.getInstance();

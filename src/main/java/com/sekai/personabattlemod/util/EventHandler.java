@@ -2,6 +2,7 @@ package com.sekai.personabattlemod.util;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.sekai.personabattlemod.PersonaBattle;
+import com.sekai.personabattlemod.battle.BattleManager;
 import com.sekai.personabattlemod.capabilities.WildCardProvider;
 import com.sekai.personabattlemod.client.gui.BetaProfileGui;
 import com.sekai.personabattlemod.commands.CommandSkill;
@@ -21,6 +22,7 @@ import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+import net.minecraftforge.fml.event.server.FMLServerStoppedEvent;
 import net.minecraftforge.fml.network.PacketDistributor;
 
 import java.util.Random;
@@ -143,6 +145,15 @@ public class EventHandler {
             //event.getPlayer().sendMessage(new TextComponentString("You're level " + stat.getLevel() + "."));
             //Main.Network.sendTo(new PacketCapabilitiesStats((Stats) stat), (EntityPlayerMP) event.player);
         }*/
+    }
+
+    @SubscribeEvent
+    public void serverStop(PlayerEvent.PlayerLoggedOutEvent event) {
+        if(event.getPlayer().world.isRemote())
+            return;
+
+        System.out.println("endlmfaolol");
+        BattleManager.clear();
     }
 
     @SubscribeEvent

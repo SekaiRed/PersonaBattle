@@ -1,21 +1,14 @@
 package com.sekai.personabattlemod.battle;
 
-import com.sekai.personabattlemod.PersonaBattle;
-import com.sekai.personabattlemod.battle.move.MoveDatabase;
 import com.sekai.personabattlemod.battle.persona.IPersona;
-import com.sekai.personabattlemod.battle.persona.impl.WildCard;
 import com.sekai.personabattlemod.capabilities.WildCardProvider;
-import com.sekai.personabattlemod.client.gui.BetaProfileGui;
 import com.sekai.personabattlemod.config.PersonaConfig;
-import com.sekai.personabattlemod.packets.PacketCapabilitiesWildCard;
 import com.sekai.personabattlemod.packets.PacketClientInitBattle;
 import com.sekai.personabattlemod.util.BattleUtil;
 import com.sekai.personabattlemod.util.PacketHandler;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -173,6 +166,11 @@ public class BattleManager {
             PacketHandler.NET.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) player.getEntity()), new PacketClientInitBattle(battle));
     }
 
+    public static void clear() {
+        instance.battles.clear();
+        instance.entitiesInBattle.clear();
+    }
+
     @SubscribeEvent
     public void livingAttackEvent(LivingAttackEvent event) {
         if(!(event.getSource().getTrueSource() instanceof ServerPlayerEntity) || event.getSource().getTrueSource().getEntityWorld().isRemote)
@@ -186,6 +184,19 @@ public class BattleManager {
     @SubscribeEvent
     public void serverTickEvent(TickEvent.ServerTickEvent event) {
 
+    }
+
+    public BattleInstance getBattle(UUID uniqueKey) {
+        return battles.get(uniqueKey);
+    }
+
+    public void endBattle(UUID uniqueKey) {
+        BattleInstance battle = battles.get(uniqueKey);
+        for(FighterInstance fighter : battle.playerSide)
+            entitiesInBattle.remove(fighter.entity);
+        for(FighterInstance fighter : battle.enemySide)
+            entitiesInBattle.remove(fighter.entity);
+        battles.remove(uniqueKey);
     }
 
     public class BattleInstance {
@@ -233,7 +244,7 @@ public class BattleManager {
         //public ??? getHighestAgility();
     }
 
-    private class FighterInstance {
+    public class FighterInstance {
         IPersona stat;
         LivingEntity entity;
         private final boolean isPlayer;
@@ -254,6 +265,10 @@ public class BattleManager {
 
         public boolean isPlayer() {
             return isPlayer;
+        }
+
+        public ITextComponent getDisplayName() {
+            return getEntity().getDisplayName();
         }
     }
 }

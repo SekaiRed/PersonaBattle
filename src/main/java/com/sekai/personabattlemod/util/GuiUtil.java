@@ -181,4 +181,22 @@ public class GuiUtil {
         bufferbuilder.pos(x + width, y, 0.0D).endVertex();
         tessellator.draw();
     }
+
+    public static void drawTexturedFreeformTri(int x0, int y0, int x1, int y1, int x2, int y2, int spriteWidth, int spriteHeight, int zLevel) {
+        final float uScale = 1f / spriteWidth;
+        final float vScale = 1f / spriteHeight;
+
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder wr = tessellator.getBuffer();
+        //wr.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+        wr.begin(GL11.GL_TRIANGLES, DefaultVertexFormats.POSITION_TEX);
+        wr.pos(x0, y0, 0.0D).tex( x0 * uScale, y0 * vScale).endVertex();
+        wr.pos(x1, y1, 0.0D).tex( x1 * uScale, y1 * vScale).endVertex();
+        wr.pos(x2, y2, 0.0D).tex( x2 * uScale, y2 * vScale).endVertex();
+        /*wr.pos(x        , y + height, zLevel).tex( u          * uScale, ((v + height) * vScale)).endVertex();
+        wr.pos(x + width, y + height, zLevel).tex((u + width) * uScale, ((v + height) * vScale)).endVertex();
+        wr.pos(x + width, y         , zLevel).tex((u + width) * uScale, ( v           * vScale)).endVertex();
+        wr.pos(x        , y         , zLevel).tex( u          * uScale, ( v           * vScale)).endVertex();*/
+        tessellator.draw();
+    }
 }

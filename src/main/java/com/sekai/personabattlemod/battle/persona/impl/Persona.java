@@ -62,8 +62,10 @@ public class Persona implements IPersona {
             addStat(stat, 1);
         }
 
-        setMaxHP(80 + level * 10);
-        setMaxSP(20 + level * 5);
+        setMaxHP(80 + level * 10 + random.nextInt(9));
+        setHP(getMaxHP());
+        setMaxSP(20 + level * 5 + random.nextInt(6));
+        setSP(getMaxSP());
     }
 
     //implementation
